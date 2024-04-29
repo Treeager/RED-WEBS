@@ -4,5 +4,6 @@ namespace RED_WEBS;
 
 public class AModel
 {
-    public string SomeString { get; set; } = "";
+    public string EncryptString { get; set; } = "";
+    public string DecryptString { get; set; } = "";
 }

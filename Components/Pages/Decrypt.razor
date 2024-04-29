@@ -1,0 +1,50 @@
+﻿@page "/d"
+@rendermode InteractiveServer
+
+<h3>Decrypt</h3>
+
+<EditForm Model=model OnSubmit="Submit" FormName="Form1">
+    <div class="form-group">
+        <label>Encrypt</label>
+        <InputTextArea @bind-Value=model.DecryptString class="form-control" id="DecryptString"/><br/>
+    @* <input type="submit" class="btn btn-primary" value="Save"/> *@
+    <button type="submit" class="btn btn-primary">Enter</button>
+    </div>
+</EditForm>
+
+<br/>
+<p role="status" >@result</p>
+
+@code {
+    string result = "Works?";
+
+    [SupplyParameterFromForm]
+    private AModel model { get; set; } = new AModel();
+    
+    private void Submit(EditContext editContext) {
+        result = Decrypt.DecryptString(model.DecryptString, 1);
+    }
+
+    public static string DecryptString(string fraze, int ROT) {
+        string output = ""; int letter; 
+        fraze = fraze.ToLower();
+
+        foreach(char ch in fraze) {
+            letter = (int) ch - 96;
+
+
+
+            if (letter - ROT == 0) {
+                output += 'z';
+            }
+            else if ( letter - ROT < 0 ) {
+                output += (char) ( letter - ROT + 26 + 96 ) ;
+            }
+            else {
+                output += (char) (ch - ROT);
+            }
+        }
+
+        return output;
+    }
+}

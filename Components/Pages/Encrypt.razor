@@ -1,0 +1,48 @@
+﻿@page "/e"
+@rendermode InteractiveServer
+
+<h3>Encrypt</h3>
+
+<EditForm Model=model OnSubmit="Submit" FormName="Form1">
+    <div class="form-group">
+        <label>Encrypt</label>
+        <InputTextArea @bind-Value=model.EncryptString class="form-control" id="EncryptString"/><br/>
+    @* <input type="submit" class="btn btn-primary" value="Save"/> *@
+    <button type="submit" class="btn btn-primary">Enter</button>
+    </div>
+</EditForm>
+
+<br/>
+<p role="status" >@result</p>
+
+@code {
+    string result = "Works?";
+
+    [SupplyParameterFromForm]
+    private AModel model { get; set; } = new AModel();
+    
+    private void Submit(EditContext editContext) {
+        result = Encrypt.EncryptString(model.EncryptString, 1);
+    }
+
+    public static string EncryptString(string fraze, int ROT) {
+        string output = "";
+        int letter;
+        fraze = fraze.ToLower();
+
+        foreach(char ch in fraze) {
+            letter = Convert.ToInt32 (ch ) - 96;
+
+            // Console.WriteLine(letter);
+
+            if ( letter + ROT > 26 ) {
+                output += (char) ((int) (( letter + ROT ) % 26 ) + 96 );
+            }
+            else {
+                output += (char) ( (int) ch + ROT );
+            }
+        }
+
+        return output;
+    }
+}
