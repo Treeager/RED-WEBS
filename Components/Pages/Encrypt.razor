@@ -5,7 +5,6 @@
 
 <EditForm Model=model OnSubmit="Submit" FormName="Form1">
     <div class="form-group">
-        <label>Encrypt</label>
         <InputTextArea @bind-Value=model.EncryptString class="form-control" id="EncryptString"/><br/>
     @* <input type="submit" class="btn btn-primary" value="Save"/> *@
     <button type="submit" class="btn btn-primary">Enter</button>
@@ -13,10 +12,15 @@
 </EditForm>
 
 <br/>
-<p role="status" >@result</p>
+<h3>Output</h3>
+<div class="card">
+  <div class="card-body">
+        <p role="status" >@result</p>
+  </div>
+</div>
 
 @code {
-    string result = "Works?";
+    string result = "";
 
     [SupplyParameterFromForm]
     private AModel model { get; set; } = new AModel();
