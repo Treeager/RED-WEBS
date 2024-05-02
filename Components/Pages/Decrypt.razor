@@ -36,7 +36,10 @@
         foreach(char ch in fraze) {
             letter = (int) ch - 96;
 
-
+            if (ch == ' ') {
+                output += ' ';
+                continue;
+            }
 
             if (letter - ROT == 0) {
                 output += 'z';
